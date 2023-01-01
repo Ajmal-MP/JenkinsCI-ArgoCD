@@ -1,0 +1,21 @@
+namespace:
+  name: default
+
+service:
+  active: active-service
+  preview: preview-service
+  labels:
+    app: openai-app
+
+rollout:
+  name: rollout-bluegreen
+  labels:
+    app: openai-app
+  # progressdeadlineseconds: 600
+  replicas: 3
+  revisionhistorylimit: 2
+  containers:
+    name: openai-app-container
+    image: ajmaldocker07/openai-node
+    tag: 8
+

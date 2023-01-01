@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ .Values.rollout.name }}
+  namespace: {{ .Values.namespace.name }}
+spec:
+  replicas: {{ .Values.rollout.replicas }}
+  revisionHistoryLimit: {{ .Values.rollout.revisionhistorylimit }}
+  selector:
+    matchLabels:
+      app: {{ .Values.rollout.labels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.rollout.labels.app }}
+    spec:
+      containers:
+      - name: {{ .Values.rollout.containers.name }}
+        image: {{ .Values.rollout.containers.image }}:{{ .Values.rollout.containers.tag }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+  strategy:
+    blueGreen: 
+      activeService: {{ .Values.service.active }}
+      previewService: {{ .Values.service.preview }}
+      autoPromotionEnabled: false
