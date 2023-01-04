@@ -39,8 +39,8 @@ def creating_autosync_application():
     os.chdir(wdir)
     os.system("kubectl create -f argocd-auto-sync.yaml")
 
-# istio_installation()
-# kiali_setup()
+istio_installation()
+kiali_setup()
 set_up_argocd()
 set_up_argo_rollout()
 creating_autosync_application()
